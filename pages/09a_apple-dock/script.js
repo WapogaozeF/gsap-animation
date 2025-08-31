@@ -1,3 +1,4 @@
+import gsap from "gsap";
 // Get DOM elements
 const dock = document.querySelector(".dock"); // The dock container at the bottom
 const icons = document.querySelectorAll(".icon"); // Individual icons inside the dock
@@ -58,5 +59,39 @@ dock.addEventListener("mousemove", (e) => {
     const scale = Math.max(1, 1.7 - distance / maxDistance);
 
     // We'll animate this part using GSAP later
+    gsap.to(icon, {
+      scale: scale,
+      duration: 0.2,
+      ease: "power3.out",
+    });
   });
 });
+
+const showDock = () => {
+  gsap.to(dock, {
+    bottom: 0,
+    ease: "expo.out",
+    duration: 0.8,
+  });
+  gsap.to(icons, {
+    opacity: 1,
+    scale: 1,
+    ease: "expo.out",
+    duration: 0.8,
+  });
+};
+
+const hideDock = () => {
+  gsap.to(dock, {
+    bottom: -150,
+    ease: "back.out",
+    duration: 1,
+  });
+  gsap.to(icons, {
+    opacity: 0,
+    scale: 0,
+    ease: "back.out",
+    duration: 1,
+  });
+  isDockVisible = false;
+}
